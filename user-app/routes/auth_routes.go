@@ -14,7 +14,7 @@ type LoginRequest struct {
 
 // 登录路由
 func AuthRoutes(r *gin.Engine) {
-	r.POST("/login", func(c *gin.Context) {
+	r.POST("/api/v1/login", func(c *gin.Context) {
 		var loginRequest LoginRequest
 		if err := c.BindJSON(&loginRequest); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid input"})
@@ -22,7 +22,7 @@ func AuthRoutes(r *gin.Engine) {
 		}
 
 		// 验证用户凭据（此处为示例，实际应用中应从数据库查询）
-		if loginRequest.Login == "rayest" && loginRequest.Password == "password" {
+		if loginRequest.Login == "rayest" && loginRequest.Password == "123456" {
 			token, err := utils.GenerateToken(loginRequest.Login)
 			if err != nil {
 				c.JSON(http.StatusInternalServerError, gin.H{"message": "Error generating token"})

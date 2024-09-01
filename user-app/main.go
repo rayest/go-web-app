@@ -17,7 +17,7 @@ type User struct {
 
 // 指定表名为 "t_c_user"
 func (User) TableName() string {
-	return "t_c_user"
+	return "t_user"
 }
 
 var db *gorm.DB
@@ -25,7 +25,7 @@ var db *gorm.DB
 func init() {
 	var err error
 	// 连接到 MySQL 数据库
-	dsn := "root:pwd@tcp(ip:3306)/db"
+	dsn := "root:Rayest@1108@(127.0.0.1:3306)/go_app?charset=utf8mb4&parseTime=True&loc=Local"
 
 	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
@@ -43,7 +43,7 @@ func main() {
 	routes.AuthRoutes(r)
 
 	// 应用 JWT 中间件（需要保护的路由）
-	protected := r.Group("/api")
+	protected := r.Group("/api/v1")
 	protected.Use(middleware.JWTMiddleware())
 
 	// 注册需要 JWT 校验的用户路由
